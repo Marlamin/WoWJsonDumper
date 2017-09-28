@@ -14,7 +14,7 @@ namespace WoWJsonDumper
             }
             else
             {
-                if (args[0] == "dumpadt")
+                if (args[0] == "adt")
                 {
                     if (args.Length != 2) throw new Exception("Not enough arguments. Need mode, file");
 
@@ -30,6 +30,19 @@ namespace WoWJsonDumper
                     }
 
                     Console.WriteLine(JsonConvert.SerializeObject(adt, Formatting.Indented));
+                }
+
+                if (args[0] == "m2")
+                {
+                    if (args.Length != 2) throw new Exception("Not enough arguments. Need mode, file");
+
+                    var m2 = new WoWFormatLib.FileReaders.M2Reader();
+
+                    m2.LoadM2(File.OpenRead(args[1]));
+
+                    m2.model.vertices = new WoWFormatLib.Structs.M2.Vertice[0];
+
+                    Console.WriteLine(JsonConvert.SerializeObject(m2, Formatting.Indented));
                 }
             }
         }
